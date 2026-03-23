@@ -13,10 +13,8 @@ app.use(cors());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 
-const BASE = '/groundbreak-form';
-
 // API routes
-app.post(`${BASE}/api/submissions`, async (req, res) => {
+app.post('/api/submissions', async (req, res) => {
   const { business_name, owner_name, address, zip, city, state } = req.body;
 
   if (!business_name || !owner_name || !city || !state) {
@@ -36,7 +34,7 @@ app.post(`${BASE}/api/submissions`, async (req, res) => {
   }
 });
 
-app.get(`${BASE}/api/submissions`, async (req, res) => {
+app.get('/api/submissions', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM submissions ORDER BY created_at DESC');
     res.json(result.rows);
@@ -47,8 +45,8 @@ app.get(`${BASE}/api/submissions`, async (req, res) => {
 });
 
 // Serve React build
-app.use(BASE, express.static(path.join(__dirname, 'client', 'dist')));
-app.get(`${BASE}/*`, (req, res) => {
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
