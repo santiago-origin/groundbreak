@@ -33,7 +33,7 @@ export default function OnboardingForm() {
   const onSubmit = async (data) => {
     setStatus('submitting');
     try {
-      const res = await fetch('/api/submissions', {
+      const res = await fetch('/groundbreak-form/api/submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
