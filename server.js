@@ -46,7 +46,7 @@ app.get('/api/submissions', async (req, res) => {
 
 // Serve React build
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
-app.get('*', (req, res) => {
+app.get('/{*path}', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
