@@ -18,6 +18,8 @@ const SERVICES = [
 
 const schema = z.object({
   owner_names: z.string().min(1, 'Required'),
+  owner_email: z.string().email('Enter a valid email').min(1, 'Required'),
+  owner_phone: z.string().min(1, 'Required'),
   legal_business_name: z.string().min(1, 'Required'),
   legal_business_address: z.string().min(1, 'Required'),
   shop_address: z.string().min(1, 'Required'),
@@ -87,7 +89,7 @@ export default function OnboardingForm() {
 
   const fieldsPerPage = [
     [],
-    ['owner_names', 'legal_business_name', 'legal_business_address', 'shop_address', 'mobile_services', 'operating_hours'],
+    ['owner_names', 'owner_email', 'owner_phone', 'legal_business_name', 'legal_business_address', 'shop_address', 'mobile_services', 'operating_hours'],
     ['services'],
     [],
     [],
@@ -200,6 +202,14 @@ export default function OnboardingForm() {
                 <Field label="Owner(s) Name(s)" required error={errors.owner_names}>
                   <input {...register('owner_names')} className={inputClass} placeholder="John Smith" />
                 </Field>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Field label="Owner Email" required error={errors.owner_email}>
+                    <input {...register('owner_email')} type="email" className={inputClass} placeholder="john@example.com" />
+                  </Field>
+                  <Field label="Owner Phone" required error={errors.owner_phone}>
+                    <input {...register('owner_phone')} type="tel" className={inputClass} placeholder="(555) 123-4567" />
+                  </Field>
+                </div>
                 <Field label="Legal Business Name" required error={errors.legal_business_name}>
                   <input {...register('legal_business_name')} className={inputClass} placeholder="Smith Auto Detailing LLC" />
                 </Field>

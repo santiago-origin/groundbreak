@@ -16,7 +16,7 @@ app.use(express.json());
 // API routes
 app.post('/api/submissions', async (req, res) => {
   const {
-    owner_names, legal_business_name, legal_business_address, shop_address,
+    owner_names, owner_email, owner_phone, legal_business_name, legal_business_address, shop_address,
     mobile_services, operating_hours, website,
     services, services_other,
     wrap_brands, ppf_brands, tint_brands, ceramic_brands,
@@ -43,7 +43,7 @@ app.post('/api/submissions', async (req, res) => {
 
     const result = await pool.query(
       `INSERT INTO submissions (
-        owner_names, legal_business_name, legal_business_address, shop_address,
+        owner_names, owner_email, owner_phone, legal_business_name, legal_business_address, shop_address,
         mobile_services, operating_hours, website,
         services, services_other,
         wrap_brands, ppf_brands, tint_brands, ceramic_brands,
@@ -51,10 +51,10 @@ app.post('/api/submissions', async (req, res) => {
         wrap_install_time, ppf_install_time, tint_install_time, ceramic_install_time, detail_install_time,
         waiting_area, key_drop, ride_assistance, dropoff_instructions,
         competitors
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27)
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29)
       RETURNING *`,
       [
-        owner_names, legal_business_name, legal_business_address || null, shop_address || null,
+        owner_names, owner_email || null, owner_phone || null, legal_business_name, legal_business_address || null, shop_address || null,
         mobile_services || null, operating_hours || null, website || null,
         servicesStr, services_other || null,
         wrap_brands || null, ppf_brands || null, tint_brands || null, ceramic_brands || null,

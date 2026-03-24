@@ -9,7 +9,7 @@ async function initDb() {
   // Drop old schema if columns don't match (fresh app, no production data)
   const check = await pool.query(`
     SELECT column_name FROM information_schema.columns
-    WHERE table_name = 'submissions' AND column_name = 'owner_names'
+    WHERE table_name = 'submissions' AND column_name = 'owner_email'
   `);
   if (check.rows.length === 0) {
     await pool.query('DROP TABLE IF EXISTS submissions');
@@ -19,6 +19,8 @@ async function initDb() {
     CREATE TABLE IF NOT EXISTS submissions (
       id SERIAL PRIMARY KEY,
       owner_names VARCHAR(500),
+      owner_email VARCHAR(500),
+      owner_phone VARCHAR(100),
       legal_business_name VARCHAR(500),
       legal_business_address VARCHAR(1000),
       shop_address TEXT,
