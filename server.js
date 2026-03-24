@@ -30,6 +30,14 @@ app.post('/api/submissions', async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Forward to n8n webhook (fire and forget)
+  const N8N_WEBHOOK = process.env.N8N_WEBHOOK_URL || 'https://auto.theoriginagency.net/webhook/groundbreak-onboarding';
+  fetch(N8N_WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req.body),
+  }).catch((err) => console.error('n8n webhook error:', err.message));
+
   try {
     const servicesStr = Array.isArray(services) ? services.join(', ') : services || '';
 
