@@ -21,7 +21,7 @@ const US_STATES = [
 ];
 
 export default function OnboardingForm() {
-  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [status, setStatus] = useState('idle');
 
   const {
     register,
@@ -48,13 +48,13 @@ export default function OnboardingForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-8 text-center">
-        <CheckCircle className="mx-auto text-lime-500 mb-4" size={48} />
+      <div className="bg-[#162d4a] border border-[#1e3a5c] rounded-xl p-8 text-center">
+        <CheckCircle className="mx-auto text-[#CC0000] mb-4" size={48} />
         <h2 className="text-xl font-semibold text-white mb-2">Submitted!</h2>
-        <p className="text-neutral-400 text-sm mb-6">We'll be in touch soon.</p>
+        <p className="text-slate-400 text-sm mb-6">We'll be in touch soon.</p>
         <button
           onClick={() => setStatus('idle')}
-          className="text-sm text-lime-500 hover:text-lime-400 transition-colors cursor-pointer"
+          className="text-sm text-[#CC0000] hover:text-[#ff1a1a] transition-colors cursor-pointer"
         >
           Submit another
         </button>
@@ -63,12 +63,12 @@ export default function OnboardingForm() {
   }
 
   const inputClass =
-    'w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-lime-500/50 focus:border-lime-500 transition-colors';
+    'w-full bg-[#0f2540] border border-[#1e3a5c] rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#CC0000]/50 focus:border-[#CC0000] transition-colors';
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-4"
+      className="bg-[#162d4a] border border-[#1e3a5c] rounded-xl p-6 space-y-4"
     >
       {status === 'error' && (
         <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2 text-red-400 text-sm">
@@ -78,31 +78,31 @@ export default function OnboardingForm() {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1">Business Name *</label>
+        <label className="block text-sm font-medium text-slate-300 mb-1">Business Name *</label>
         <input {...register('business_name')} className={inputClass} placeholder="e.g. ABC Landscaping" />
         {errors.business_name && <p className="text-red-400 text-xs mt-1">{errors.business_name.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1">Business Owner Name *</label>
+        <label className="block text-sm font-medium text-slate-300 mb-1">Business Owner Name *</label>
         <input {...register('owner_name')} className={inputClass} placeholder="Full name" />
         {errors.owner_name && <p className="text-red-400 text-xs mt-1">{errors.owner_name.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1">Address</label>
+        <label className="block text-sm font-medium text-slate-300 mb-1">Address</label>
         <input {...register('address')} className={inputClass} placeholder="Street address" />
       </div>
 
       <div className="grid grid-cols-3 gap-3">
         <div className="col-span-1">
-          <label className="block text-sm font-medium text-neutral-300 mb-1">City *</label>
+          <label className="block text-sm font-medium text-slate-300 mb-1">City *</label>
           <input {...register('city')} className={inputClass} placeholder="City" />
           {errors.city && <p className="text-red-400 text-xs mt-1">{errors.city.message}</p>}
         </div>
 
         <div className="col-span-1">
-          <label className="block text-sm font-medium text-neutral-300 mb-1">State *</label>
+          <label className="block text-sm font-medium text-slate-300 mb-1">State *</label>
           <select
             {...register('state')}
             className={`${inputClass} appearance-none`}
@@ -117,7 +117,7 @@ export default function OnboardingForm() {
         </div>
 
         <div className="col-span-1">
-          <label className="block text-sm font-medium text-neutral-300 mb-1">ZIP</label>
+          <label className="block text-sm font-medium text-slate-300 mb-1">ZIP</label>
           <input {...register('zip')} className={inputClass} placeholder="ZIP" />
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function OnboardingForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full bg-lime-500 hover:bg-lime-400 disabled:bg-lime-500/50 text-neutral-950 font-semibold py-2.5 rounded-lg text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
+        className="w-full bg-[#CC0000] hover:bg-[#e60000] disabled:bg-[#CC0000]/50 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
       >
         {status === 'submitting' ? (
           <>
