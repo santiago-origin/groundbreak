@@ -6,7 +6,9 @@ import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import DateFilter from './DateFilter';
 import {
   monthlyRevenue, dailyRevenue, todayAppointments, sourceBreakdown,
   setters, REVENUE_PER_SHOW
@@ -23,11 +25,16 @@ const bookingRate = ((monthlyRevenue[5].booked / monthlyRevenue[5].leads) * 100)
 const showRate = ((monthShows / monthlyRevenue[5].booked) * 100).toFixed(0);
 
 export default function Dashboard() {
+  const [range, setRange] = useState('this_month');
+
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Overview</h1>
-        <p className="text-sm text-gray-400 mt-0.5">March 2026 performance at a glance</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900">Overview</h1>
+          <p className="text-sm text-gray-400 mt-0.5">Performance at a glance</p>
+        </div>
+        <DateFilter value={range} onChange={setRange} />
       </div>
 
       {/* KPIs */}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CalendarCheck, Filter, Phone } from 'lucide-react';
+import DateFilter from './DateFilter';
 import { weeklyAppointments, REVENUE_PER_SHOW } from './mockData';
 import { StatusBadge } from './Dashboard';
 
@@ -8,6 +9,7 @@ const DAY_LABELS = { '2026-03-23': 'Mon 3/23', '2026-03-24': 'Tue 3/24', '2026-0
 
 export default function Appointments() {
   const [filter, setFilter] = useState('all');
+  const [range, setRange] = useState('this_week');
 
   const filtered = filter === 'all' ? weeklyAppointments : weeklyAppointments.filter(a => a.status === filter);
   const totalShows = weeklyAppointments.filter(a => a.status === 'shown').length;
@@ -22,6 +24,7 @@ export default function Appointments() {
           <p className="text-sm text-gray-400 mt-0.5">Week of March 23–27, 2026</p>
         </div>
         <div className="flex items-center gap-4 text-[11px]">
+          <DateFilter value={range} onChange={setRange} />
           <span className="text-gray-400">{weeklyAppointments.length} total</span>
           <span className="text-green-600 font-medium">{totalShows} shows (${totalShows * REVENUE_PER_SHOW})</span>
           <span className="text-red-500">{totalNoShows} no-shows</span>

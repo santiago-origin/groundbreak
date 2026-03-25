@@ -1,8 +1,9 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import {
   LayoutDashboard, CalendarCheck, Users, Phone, UserCircle,
-  Bell, Search, ChevronRight
+  Search, ChevronRight
 } from 'lucide-react';
+import NotificationsBell from './Notifications';
 
 const NAV = [
   { to: '/', icon: LayoutDashboard, label: 'Overview' },
@@ -73,10 +74,7 @@ export default function Layout() {
                   className="pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-[13px] text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 w-48"
                 />
               </div>
-              <button className="relative p-1.5 rounded-lg hover:bg-gray-50 transition-colors">
-                <Bell size={16} className="text-gray-400" />
-                <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-red-500 rounded-full" />
-              </button>
+              <NotificationsBell />
             </div>
           </div>
         </header>

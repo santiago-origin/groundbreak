@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Phone, CalendarCheck, Eye, EyeOff, TrendingUp, Clock } from 'lucide-react';
+import DateFilter from './DateFilter';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { setters, REVENUE_PER_SHOW } from './mockData';
 
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
 export default function Performance() {
+  const [range, setRange] = useState('this_month');
   const totalCalls = setters.reduce((s, a) => s + a.stats.callsMade, 0);
   const totalBooked = setters.reduce((s, a) => s + a.stats.booked, 0);
   const totalShows = setters.reduce((s, a) => s + a.stats.shows, 0);
@@ -12,9 +15,12 @@ export default function Performance() {
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Call Center Performance</h1>
-        <p className="text-sm text-gray-400 mt-0.5">March 2026 — Setter metrics</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900">Call Center Performance</h1>
+          <p className="text-sm text-gray-400 mt-0.5">Setter metrics</p>
+        </div>
+        <DateFilter value={range} onChange={setRange} />
       </div>
 
       {/* Team totals */}

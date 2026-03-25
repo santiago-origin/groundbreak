@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Phone, Mail, ChevronRight } from 'lucide-react';
+import DateFilter from './DateFilter';
 import { leads } from './mockData';
 
 const STATUS_STYLES = {
@@ -11,6 +12,7 @@ const STATUS_STYLES = {
 
 export default function Leads() {
   const [filter, setFilter] = useState('all');
+  const [range, setRange] = useState('this_month');
   const filtered = filter === 'all' ? leads : leads.filter(l => l.status === filter);
 
   const counts = {
@@ -23,9 +25,12 @@ export default function Leads() {
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Leads</h1>
-        <p className="text-sm text-gray-400 mt-0.5">{leads.length} total leads this month</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900">Leads</h1>
+          <p className="text-sm text-gray-400 mt-0.5">{leads.length} total leads</p>
+        </div>
+        <DateFilter value={range} onChange={setRange} />
       </div>
 
       {/* Pipeline summary */}
