@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Phone, CheckCircle, XCircle, Clock, DollarSign, AlertCircle } from 'lucide-react';
+import { Phone, CheckCircle, XCircle, DollarSign, AlertCircle, ExternalLink, Clock, User } from 'lucide-react';
 import { todayAppointments, REVENUE_PER_SHOW } from './mockData';
-import { StatusBadge } from './Dashboard';
 
 export default function TodayBrief() {
   const [appointments, setAppointments] = useState(todayAppointments);
@@ -20,122 +19,131 @@ export default function TodayBrief() {
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Today's Brief</h1>
-        <p className="text-sm text-gray-400 mt-0.5">Wednesday, March 25 — Call and confirm, then mark results</p>
-      </div>
-
-      {/* Stats bar */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-semibold text-gray-900">{appointments.length}</p>
-          <p className="text-[11px] text-gray-400 mt-0.5">Total Appointments</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900">Today's Brief</h1>
+          <p className="text-sm text-gray-400 mt-0.5">Wednesday, March 25 — {appointments.length} appointments</p>
         </div>
-        <div className="bg-green-50 rounded-2xl border border-green-100 p-4 text-center">
-          <p className="text-2xl font-semibold text-green-700">{shows}</p>
-          <p className="text-[11px] text-green-600 mt-0.5">Shows</p>
-        </div>
-        <div className="bg-red-50 rounded-2xl border border-red-100 p-4 text-center">
-          <p className="text-2xl font-semibold text-red-600">{noShows}</p>
-          <p className="text-[11px] text-red-500 mt-0.5">No-Shows</p>
-        </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-semibold text-gray-900">${revenue}</p>
-          <p className="text-[11px] text-gray-400 mt-0.5">Revenue Earned</p>
-        </div>
-      </div>
-
-      {/* Appointment list */}
-      <div className="bg-white rounded-2xl border border-gray-100">
-        <div className="px-5 py-4 border-b border-gray-50">
-          <div className="grid grid-cols-12 gap-4 text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-            <div className="col-span-1">Time</div>
-            <div className="col-span-2">Lead</div>
-            <div className="col-span-2">Phone</div>
-            <div className="col-span-2">Service</div>
-            <div className="col-span-1">Setter</div>
-            <div className="col-span-1">Source</div>
-            <div className="col-span-1">Status</div>
-            <div className="col-span-2 text-right">Actions</div>
+        <div className="flex items-center gap-6 text-sm">
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{shows}</p>
+            <p className="text-[11px] text-green-600 font-medium">Shows</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{noShows}</p>
+            <p className="text-[11px] text-red-500 font-medium">No-Shows</p>
+          </div>
+          <div className="h-8 w-px bg-gray-200" />
+          <div className="text-center">
+            <p className="text-2xl font-bold text-green-600">${revenue}</p>
+            <p className="text-[11px] text-gray-400 font-medium">Earned</p>
           </div>
         </div>
+      </div>
 
-        <div className="divide-y divide-gray-50">
-          {appointments.map((a) => (
-            <div key={a.id} className={`px-5 py-3.5 grid grid-cols-12 gap-4 items-center transition-colors ${a.shown === true ? 'bg-green-50/40' : a.shown === false ? 'bg-red-50/30' : 'hover:bg-gray-50/50'}`}>
-              <div className="col-span-1">
-                <span className="text-sm font-medium text-gray-900">{a.time}</span>
-              </div>
-              <div className="col-span-2">
-                <p className="text-sm font-medium text-gray-900">{a.lead}</p>
-                <p className="text-[11px] text-gray-400">{a.shop}</p>
-              </div>
-              <div className="col-span-2">
-                <a href={`tel:${a.phone}`} className="text-sm text-gray-700 hover:text-gray-900 flex items-center gap-1.5 transition-colors">
-                  <Phone size={12} className="text-gray-400" />
-                  {a.phone}
-                </a>
-              </div>
-              <div className="col-span-2">
-                <span className="text-sm text-gray-700">{a.service}</span>
-              </div>
-              <div className="col-span-1">
-                <span className="text-[11px] text-gray-500">{a.setter.split(' ')[0]}</span>
-              </div>
-              <div className="col-span-1">
-                <span className="text-[11px] text-gray-500">{a.source}</span>
-              </div>
-              <div className="col-span-1">
-                <StatusBadge status={a.status} />
-              </div>
-              <div className="col-span-2 flex items-center justify-end gap-2">
-                <a
-                  href="https://app.gohighlevel.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1.5 rounded-lg transition-colors"
-                >
-                  <Phone size={12} />
-                  Call in GHL
-                </a>
-                {a.shown === null ? (
-                  <>
-                    <button
-                      onClick={() => markShown(a.id)}
-                      className="flex items-center gap-1 text-[11px] font-medium text-green-700 bg-green-50 hover:bg-green-100 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <CheckCircle size={12} />
-                      Show
-                    </button>
-                    <button
-                      onClick={() => markNoShow(a.id)}
-                      className="flex items-center gap-1 text-[11px] font-medium text-red-600 bg-red-50 hover:bg-red-100 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <XCircle size={12} />
+      {/* Appointment cards */}
+      <div className="space-y-2.5">
+        {appointments.map((a) => {
+          const isDone = a.shown !== null;
+          const isShown = a.shown === true;
+
+          return (
+            <div
+              key={a.id}
+              className={`bg-white rounded-xl border p-4 transition-all ${
+                isShown ? 'border-green-200 bg-green-50/30' :
+                a.shown === false ? 'border-red-200 bg-red-50/20' :
+                'border-gray-100 hover:border-gray-200'
+              }`}
+            >
+              <div className="flex items-center gap-5">
+                {/* Time */}
+                <div className="w-20 flex-shrink-0">
+                  <p className="text-base font-semibold text-gray-900">{a.time}</p>
+                </div>
+
+                {/* Lead info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-gray-900">{a.lead}</p>
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
+                      a.status === 'confirmed' ? 'bg-green-100 text-green-700' :
+                      a.status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                      a.status === 'no_answer' ? 'bg-red-100 text-red-600' :
+                      a.status === 'shown' ? 'bg-green-100 text-green-700' :
+                      a.status === 'no_show' ? 'bg-red-100 text-red-600' :
+                      'bg-gray-100 text-gray-500'
+                    }`}>
+                      {a.status === 'no_answer' ? 'No Answer' : a.status === 'no_show' ? 'No-Show' : a.status.charAt(0).toUpperCase() + a.status.slice(1)}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 mt-1 text-[12px] text-gray-400">
+                    <span>{a.service}</span>
+                    <span>{a.shop}</span>
+                    <span className="flex items-center gap-1"><User size={10} />{a.setter.split(' ')[0]}</span>
+                    <span>{a.source}</span>
+                  </div>
+                </div>
+
+                {/* Phone + Call GHL */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <span className="text-[13px] text-gray-600 font-mono">{a.phone}</span>
+                  <a
+                    href="https://app.gohighlevel.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[12px] font-medium text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg transition-colors"
+                  >
+                    <Phone size={12} />
+                    Call
+                    <ExternalLink size={10} />
+                  </a>
+                </div>
+
+                {/* Divider */}
+                <div className="h-8 w-px bg-gray-200 flex-shrink-0" />
+
+                {/* Actions */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {!isDone ? (
+                    <>
+                      <button
+                        onClick={() => markShown(a.id)}
+                        className="flex items-center gap-1.5 text-[12px] font-medium bg-green-600 hover:bg-green-700 text-white px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+                      >
+                        <CheckCircle size={13} />
+                        Showed
+                      </button>
+                      <button
+                        onClick={() => markNoShow(a.id)}
+                        className="flex items-center gap-1.5 text-[12px] font-medium bg-white border border-red-200 text-red-600 hover:bg-red-50 px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+                      >
+                        <XCircle size={13} />
+                        No-Show
+                      </button>
+                    </>
+                  ) : isShown ? (
+                    <div className="flex items-center gap-1.5 text-[12px] font-semibold text-green-700 bg-green-100 px-3.5 py-1.5 rounded-lg">
+                      <CheckCircle size={13} />
+                      +${REVENUE_PER_SHOW}
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-500 bg-red-50 px-3.5 py-1.5 rounded-lg">
+                      <XCircle size={13} />
                       No-Show
-                    </button>
-                  </>
-                ) : a.shown ? (
-                  <span className="flex items-center gap-1 text-[11px] font-medium text-green-700">
-                    <CheckCircle size={12} />
-                    Showed — +${REVENUE_PER_SHOW}
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1 text-[11px] font-medium text-red-500">
-                    <XCircle size={12} />
-                    No-Show
-                  </span>
-                )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
       {pending > 0 && (
-        <div className="mt-4 flex items-center gap-2 text-sm text-amber-600 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
+        <div className="mt-5 flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
           <AlertCircle size={16} />
-          {pending} appointment{pending > 1 ? 's' : ''} still pending — call to confirm and mark results
+          <span><strong>{pending}</strong> appointment{pending > 1 ? 's' : ''} still need to be marked — call and confirm, then log results</span>
         </div>
       )}
     </div>
