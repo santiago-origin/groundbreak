@@ -20,7 +20,7 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/leads" element={<Leads />} />
           <Route path="/performance" element={<Performance />} />
-          <Route path="/client" element={<ClientInfo />} />
+          <Route path="/clients" element={<ClientInfo />} />
         </Route>
 
         {/* Standalone form (no sidebar) */}

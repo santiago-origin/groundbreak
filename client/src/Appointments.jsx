@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarCheck, Filter } from 'lucide-react';
+import { CalendarCheck, Filter, Phone } from 'lucide-react';
 import { weeklyAppointments, REVENUE_PER_SHOW } from './mockData';
 import { StatusBadge } from './Dashboard';
 
@@ -68,6 +68,11 @@ export default function Appointments() {
                     <span className="text-[11px] text-gray-400">{a.source}</span>
                     <StatusBadge status={a.status} />
                     {a.status === 'shown' && <span className="text-[11px] font-medium text-green-600">+$100</span>}
+                    {(a.status === 'confirmed' || a.status === 'pending') && (
+                      <a href="https://app.gohighlevel.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[10px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-lg transition-colors">
+                        <Phone size={10} />GHL
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}

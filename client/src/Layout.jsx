@@ -10,7 +10,7 @@ const NAV = [
   { to: '/appointments', icon: CalendarCheck, label: 'Appointments' },
   { to: '/leads', icon: Users, label: 'Leads' },
   { to: '/performance', icon: Phone, label: 'Call Center' },
-  { to: '/client', icon: UserCircle, label: 'Client Info' },
+  { to: '/clients', icon: UserCircle, label: 'Clients' },
 ];
 
 export default function Layout() {
@@ -49,11 +49,11 @@ export default function Layout() {
         <div className="p-4 border-t border-gray-100">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-[10px] font-bold">EAW</span>
+              <span className="text-white text-[10px] font-bold">JP</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-medium text-gray-900 truncate">Elite Auto Wraps</p>
-              <p className="text-[11px] text-gray-400 truncate">Mike Rodriguez</p>
+              <p className="text-[13px] font-medium text-gray-900 truncate">Jeremiah Ponce</p>
+              <p className="text-[11px] text-gray-400 truncate">Ground Break Marketing</p>
             </div>
           </div>
         </div>

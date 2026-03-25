@@ -89,6 +89,15 @@ export default function TodayBrief() {
                 <StatusBadge status={a.status} />
               </div>
               <div className="col-span-2 flex items-center justify-end gap-2">
+                <a
+                  href="https://app.gohighlevel.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1.5 rounded-lg transition-colors"
+                >
+                  <Phone size={12} />
+                  Call in GHL
+                </a>
                 {a.shown === null ? (
                   <>
                     <button
